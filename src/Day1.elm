@@ -4,9 +4,20 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 
 
-type Direction
+type Rotate
     = Right Int
     | Left Int
+
+
+type Direction
+    = North
+    | South
+    | East
+    | West
+
+
+type alias Position =
+    { row : Int, col : Int, dir : Direction }
 
 
 view : String -> Html msg
@@ -19,18 +30,15 @@ main =
     view "test"
 
 
-parseInput : String -> List Direction
+parseInput : String -> List Rotate
 parseInput =
     \input ->
-        let
-            stepsList =
-                String.split ", " input
-        in
-        stepsList
+        input
+            |> String.split ", "
             |> List.filterMap parseStep
 
 
-parseStep : String -> Maybe Direction
+parseStep : String -> Maybe Rotate
 parseStep =
     \step ->
         let
