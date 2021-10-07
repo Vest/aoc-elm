@@ -23,17 +23,30 @@ parseInput : String -> List Direction
 parseInput =
     \input ->
         let
-            split =
+            stepsList =
                 String.split ", " input
         in
-        [ Right 1 ]
+        stepsList
+            |> List.filterMap parseStep
 
 
-parseStep : String -> Direction
+parseStep : String -> Maybe Direction
 parseStep =
     \step ->
         let
             stepChar =
                 String.left 1 step
+
+            maybeSteps =
+                String.dropLeft 1 step
+                    |> String.toInt
         in
-        Right 1
+        case ( stepChar, maybeSteps ) of
+            ( "R", Just steps ) ->
+                Just (Right steps)
+
+            ( "L", Just steps ) ->
+                Just (Left steps)
+
+            _ ->
+                Nothing
