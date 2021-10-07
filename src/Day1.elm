@@ -1,7 +1,12 @@
-module Day1 exposing (main)
+module Day1 exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
+
+
+type Direction
+    = Right Int
+    | Left Int
 
 
 view : String -> Html msg
@@ -12,3 +17,9 @@ view model =
 main : Html msg
 main =
     view "test"
+
+
+parseInput : String -> List Direction
+parseInput =
+    \input ->
+        [ Right 1 ]
